@@ -314,9 +314,53 @@ namespace Display
                     {
                         webaddress = webaddress + ".";
                     }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.OemTilde)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.OemTilde)))
+                    {
+                        webaddress = webaddress + "_";
+                    }
                     if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.OemQuestion)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.OemQuestion)))
                     {
                         webaddress = webaddress + "/";
+                    }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.NumPad0)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad0)))
+                    {
+                        webaddress = webaddress + "0";
+                    }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.NumPad1)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad1)))
+                    {
+                        webaddress = webaddress + "1";
+                    }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.NumPad2)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad2)))
+                    {
+                        webaddress = webaddress + "2";
+                    }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.NumPad3)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad3)))
+                    {
+                        webaddress = webaddress + "3";
+                    }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.NumPad4)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad4)))
+                    {
+                        webaddress = webaddress + "4";
+                    }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.NumPad5)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad5)))
+                    {
+                        webaddress = webaddress + "5";
+                    }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.NumPad6)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad6)))
+                    {
+                        webaddress = webaddress + "6";
+                    }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.NumPad7)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad7)))
+                    {
+                        webaddress = webaddress + "7";
+                    }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.NumPad8)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad8)))
+                    {
+                        webaddress = webaddress + "8";
+                    }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.NumPad9)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.NumPad9)))
+                    {
+                        webaddress = webaddress + "9";
                     }
                     if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.Q)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.Q)))
                     {
@@ -634,7 +678,7 @@ namespace Display
                                 rows = 0;
                             }
 
-                            if (RectangleDictionary.Count == 13)
+                            if (RectangleDictionary.Count == 12)
                             {
                                 cols += (int)StringSize.X + 100;
                                 rows = 0;
@@ -981,61 +1025,25 @@ namespace Display
 
         public float returnFontSize(int biggestword, int size)
         {
-            float temp = 0;
+            float temp = 0.0000f;
+            float temp2 = 0.0000f;
 
-            if (biggestword > 1000)
+            //get percentage of largest number relative to size
+            temp = (float)biggestword / (float)size;
+
+            while (temp > 1.0000f)
             {
-                if (size >= 999)
-                {
-                    temp = size / 1000.0f;
-                }
-                else if (size < 999)
-                {
-                    temp = size / 1000.0f;
-                }
-
-                if (temp < 0.3f)
-                {
-                    temp = 0.3f;
-                }
-
-            }
-            else if (biggestword > 100)
-            {
-                if (size >= 99)
-                {
-                    temp = size / 100.0f;
-                }
-                else if (size < 99)
-                {
-                    temp = size / 100.0f;
-                }
-
-                if (temp < 0.3f)
-                {
-                    temp = 0.3f;
-                }
-
-            }
-            else if (biggestword > 10)
-            {
-                if (size >= 9)
-                {
-                    temp = size / 10.0f;
-                }
-                else if (size < 9)
-                {
-                    temp = size / 10.0f;
-                }
-
-                if (temp < 0.3f)
-                {
-                    temp = 0.3f;
-                }
-
+                temp = temp / 10.000f;
             }
 
-            return temp;
+            temp2 = 1.000f - temp;
+
+            if (biggestword <= size)
+            {
+                return 1.0f;
+            }
+
+            return temp2;
         }
 
         public string biggestWordGet(Dictionary<string, int> DIC)
@@ -1059,6 +1067,11 @@ namespace Display
                     secondBiggestINT = x.Value;
                     secondBiggest = x.Key;
                 }
+            }
+
+            if (biggestINT == 1)
+            {
+                return "Error";
             }
 
             return secondBiggest;
@@ -1200,20 +1213,33 @@ namespace Display
 
                 foreach (var rec in RectangleDictionary)
                 {
+
+                    if (rec.Key == "")
+                    {
+                        NotResized[rec.Key] = true;
+                    }
+
                     if (NotResized[rec.Key] == false)
                     {
                         NotResized[rec.Key] = true;
-                        float myfontscale = returnFontSize(Words[biggestWordGet(Words)], Words[rec.Key]);
-                        Rectangle resizer =
-                            new Rectangle(RectangleDictionary[rec.Key].X,
-                                RectangleDictionary[rec.Key].Y,
-                        (int)(RectangleDictionary[rec.Key].Width * myfontscale),
-                        (int)(RectangleDictionary[rec.Key].Height * myfontscale));
 
-                        //float myfontscale = returnFontSize(Words[rec.Key])
-                        RectangleDictionary[rec.Key] = resizer;
-                        break;
+                        if (Words[rec.Key] <= Words[biggestWordGet(Words)])
+                        {
+
+                                float myfontscale = returnFontSize(Words[biggestWordGet(Words)], Words[rec.Key]);
+                                Rectangle resizer =
+                                    new Rectangle(RectangleDictionary[rec.Key].X,
+                                        RectangleDictionary[rec.Key].Y,
+                                (int)(RectangleDictionary[rec.Key].Width * myfontscale),
+                                (int)(RectangleDictionary[rec.Key].Height * myfontscale));
+
+                                RectangleDictionary[rec.Key] = resizer;
+                                break;
+                           
+                        }
+
                     }
+                    
 
                 }
 

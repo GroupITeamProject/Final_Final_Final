@@ -12,8 +12,13 @@ namespace Display
 {
     class WebScrap
     {
+        List<string> badwords = new List<string>()
+            {"the","and","The","is","a","to","of"};
+        
         public WebScrap()
         {
+
+
             WebClient w = new WebClient();
             string webaddress;
             using (StreamReader reader = new StreamReader("thisonelads2.txt"))
@@ -37,9 +42,9 @@ namespace Display
             {
                 using (StreamWriter writer = new StreamWriter("webOutput.txt"))
                 {
-                    writer.WriteLine("Go back you idiot and put in a different URL");
+                    writer.WriteLine("Error incorrect URL Return to menu");
                 }
-                //blah blah
+                
             }
             
         }

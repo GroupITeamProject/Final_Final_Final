@@ -20,7 +20,14 @@ namespace Display
 
         String fileLocation;
 
-        List<String> LS;
+        List<string> badwords = 
+            new List<string>() 
+            {"the","be","to","of","and","a","in","that","have",
+                "I","it","for","not","on","with","he","as",
+                "you","do","at","his","her","The","A","is",
+                "can","are","get" };
+
+        bool wordisbad = false;
 
         Dictionary<string, int> D;
 
@@ -63,14 +70,17 @@ namespace Display
                      foreach loop goes through each word in the array of words
                     */
                     foreach (var word in words)
-                        /*
-                         if/else statement to check if the current word appears in the dictionary already
-                         and if it does it increments the value for said word, if not(or if else :) ) 
-                         then it adds the word to the dictionary
-                         */
+                    {
+                        for (int i = 0; i < badwords.Count; i++)
+                        {
+                            if (word == badwords[i])
+                            {
+                                wordisbad = true;
+                            }
+                        }
 
                         //Checks if the "string" in word ONLY contains letters!!
-                        if (new ValidString().isValid(word))
+                        if (new ValidString().isValid(word) && !wordisbad)
                         {
 
                             if (dict.ContainsKey(word))
@@ -82,6 +92,9 @@ namespace Display
                                 dict.Add(word, 1);
                             }
                         }
+
+                        wordisbad = false;
+                    }
 
                     }
 
