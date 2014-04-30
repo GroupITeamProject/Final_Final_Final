@@ -314,6 +314,10 @@ namespace Display
                     {
                         webaddress = webaddress + ".";
                     }
+                    if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.OemMinus)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.OemMinus)))
+                    {
+                        webaddress = webaddress + "-";
+                    }
                     if ((oldstate.IsKeyUp(Microsoft.Xna.Framework.Input.Keys.OemTilde)) && (state.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.OemTilde)))
                     {
                         webaddress = webaddress + "_";

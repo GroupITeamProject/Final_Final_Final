@@ -22,10 +22,10 @@ namespace Display
 
         List<string> badwords = 
             new List<string>() 
-            {"the","be","to","of","and","a","in","that","have",
+            {"the","be","to","of","and","a","in","that","this","have",
                 "I","it","for","not","on","with","he","as",
-                "you","do","at","his","her","The","A","is",
-                "can","are","get" };
+                "you","do","at","his","His","Her","her","The","A","is",
+                "can","are","get","var" };
 
         bool wordisbad = false;
 

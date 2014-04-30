@@ -42,7 +42,7 @@ namespace Display
             {
                 using (StreamWriter writer = new StreamWriter("webOutput.txt"))
                 {
-                    writer.WriteLine("Error incorrect URL Return to menu");
+                    writer.WriteLine("     Error incorrect URL Return to menu");
                 }
                 
             }
